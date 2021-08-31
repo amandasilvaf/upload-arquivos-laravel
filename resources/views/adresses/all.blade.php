@@ -12,7 +12,6 @@
     input:focus{
         border: 2px solid #1BC5BD;
     }
-    
 </style>
 
 <div class="alert alert-custom alert-outline-primary fade show d-none" role="alert" id="alertSuccess">
@@ -383,7 +382,6 @@
                 data: e,
                 beforeSend: function(){
                     $(document).find('span.error-text').text('');
-
                 },
                 success:function(data){
                     if(data.status == 0){

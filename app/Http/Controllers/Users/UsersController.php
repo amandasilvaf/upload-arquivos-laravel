@@ -115,18 +115,14 @@ class UsersController extends Controller
             ]);
         }
        
-
         if (!$user) {
             return response()->json(['Não foi possível realizar o cadastro.'], 400);
         }
 
-
-         $destino = $user->email;
-         Mail::to($destino)->send(new CadastroEmail($user));
+        $destino = $user->email;
+        Mail::to($destino)->send(new CadastroEmail($user));
         
         return response()->json(['result' => 'success'], 201);
-
-
     }
 
     public function editUser($id)

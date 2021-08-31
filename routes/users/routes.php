@@ -6,6 +6,7 @@ use App\Http\Controllers\Users\UsersController;
 use App\Http\Controllers\Users\ProfilesController;
 use App\Http\Controllers\Users\PermissionsController;
 use App\Mail\PrimeiroEmailEnviado;
+use App\Http\Controllers\UploadController;
 // use Illuminate\Support\Facade\Mail;
 
 Route::prefix('usuarios')->middleware('verify.permissions')->group(function () {
@@ -42,3 +43,6 @@ Route::prefix('perfil')->group(function () {
     Route::post('/alterar-senha', [UserController::class, 'updatePassword'])->name('user.password.update');
 });
 
+
+Route::view('/form', 'upload.form');
+Route::post('upload', [UploadController::class, 'upload'])->name('upload');
