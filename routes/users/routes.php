@@ -7,6 +7,7 @@ use App\Http\Controllers\Users\ProfilesController;
 use App\Http\Controllers\Users\PermissionsController;
 use App\Mail\PrimeiroEmailEnviado;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\ColaboradorController;
 // use Illuminate\Support\Facade\Mail;
 
 Route::prefix('usuarios')->middleware('verify.permissions')->group(function () {
@@ -46,3 +47,5 @@ Route::prefix('perfil')->group(function () {
 
 Route::view('/form', 'upload.form');
 Route::post('upload', [UploadController::class, 'upload'])->name('upload');
+
+Route::resource('colaboradores', [ColaboradorController::class]);

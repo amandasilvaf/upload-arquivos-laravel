@@ -13,5 +13,4 @@ class UploadController extends Controller
         dd($request->file('arquivo'), $request->all());
     }
 
-
 }
