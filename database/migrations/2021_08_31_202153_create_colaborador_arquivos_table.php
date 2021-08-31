@@ -16,7 +16,7 @@ class CreateColaboradorArquivosTable extends Migration
         Schema::create('colaborador_arquivos', function (Blueprint $table) {
             $table->id();
             $table->string('caminho');
-            $table->foreignId('colaboradors_id')->constrained('colaboradors')->onDelete('cascade');
+            $table->foreignId('colaboradores_id')->constrained('colaboradores')->onDelete('cascade');
             $table->timestamps();
         });
     }

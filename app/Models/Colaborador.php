@@ -10,6 +10,8 @@ class Colaborador extends Model
 {
     use HasFactory;
 
+    protected $table = 'colaboradores';
+
     public function arquivos()
     {
         return $this->hasMany(ColaboradorArquivo::class);
