@@ -16,6 +16,7 @@ class CreateColaboradorsTable extends Migration
         Schema::create('colaboradores', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->string('cargo');
             $table->timestamps();
         });
     }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Colaborador;
+use App\Models\ColaboradorArquivo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ColaboradorController extends Controller
 {
@@ -13,7 +16,8 @@ class ColaboradorController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('colaboradores.index');
     }
 
     /**
@@ -23,18 +27,29 @@ class ColaboradorController extends Controller
      */
     public function create()
     {
-       
+       return view('colaboradores.new');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $colaborador = new Colaborador();
+        $colaborador->nome = $request->nome;
+        $colaborador->cargo = $request->cargo;
+        $colaborador->save();
+
+         if($request->hasFile('images')){
+             for($i = 0; $i < count($request->allFiles()['images']); $i++){
+                $file = $request->allFiles()['images'][$i];
+
+                $colaboradorArquivo = new ColaboradorArquivo();
+                $colaboradorArquivo->colaboradores_id = $colaborador->id;
+                $colaboradorArquivo->caminho = $file->store('colaboradores/' . $colaborador->id);
+                $colaboradorArquivo->save();
+                unset($colaboradorArquivo); 
+             }
+         }
+         dd($colaborador);
+        // return redirect(route('colaboradores'));
     }
 
     /**
@@ -43,9 +58,12 @@ class ColaboradorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $colaborador)
     {
-        //
+        //dd($colaborador);
+       //$colaborador = Colaborador::where('id', '=', $id)->with('arquivos');
+        //dd($colaborador);
+        return view('colaboradores.show', ['colaborador' => $colaborador]);
     }
 
     /**

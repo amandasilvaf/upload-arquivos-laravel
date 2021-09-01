@@ -9,8 +9,8 @@ class UploadController extends Controller
     
     public function upload(Request $request)
     {
-        $request->file('arquivo')->store('teste');
-        dd($request->file('arquivo'), $request->all());
+        // $request->file('arquivo')->store('teste');
+        // dd($request->file('arquivo'), $request->all());
     }
 
 }
