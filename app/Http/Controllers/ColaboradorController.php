@@ -14,10 +14,10 @@ class ColaboradorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function list()
     {
         $colaboradores = Colaborador::all();
-        return view('colaboradores.index', compact('colaboradores'));
+        return view('colaboradores.list', compact('colaboradores'));
     }
 
     /**
@@ -32,17 +32,28 @@ class ColaboradorController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-        // dd($data);
-        $foto = $request->image;
-        $extensao = $foto->extension();
-       // $nomeFoto = md5($foto->getClientOriginalName() . strtotime("now") . "." . $extensao);
-        $foto->move(public_path('img/colaboradores//temp/'));
+    //     $colaborador = $request->all();
+    //    // dd($colaborador);
+    //     $foto = $request->image;
+    //     //dd($foto);
+    //     $nomeFoto = uniqid(date('HisYmd'));
+    //     $extensao = $foto->extension();
+    //     $nomeArquivo = "{$nomeFoto}.{$extensao}";
+    //     $colaborador['foto'] = $foto->storeAs('colaboradores', $nomeArquivo);
 
-        $data['foto'] = $foto;
+    //     Colaborador::create($colaborador);
+    //     return redirect()->route('colaboradores');
 
-        Colaborador::create($data);
-        return redirect()->route('colaboradores');
+           $colaborador = new Colaborador();
+           $colaborador->nome = $request->nome;
+           $colaborador->cargo = $request->cargo;
+           $foto = $request->file('image');
+           $imageName = time().'.'.$foto->extension();
+           $foto->move(public_path('colaboradores'), $imageName);
+           $colaborador->foto = $imageName;
+           $colaborador->save();
+           return redirect()->route('colaboradores');
+        
     }
 
     /**

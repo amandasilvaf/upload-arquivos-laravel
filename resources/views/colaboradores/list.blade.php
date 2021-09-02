@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class='card-body dados'>
-                                        <img src="img/colaboradores/{{$colaborador->foto}}" alt="">
+                                        <img src="{{ asset('colaboradores')}}/{{$colaborador->foto}}" style="max-width:80px;" >
                                         <div class="cargo">{{$colaborador->cargo}}</div>                        
                                     </div>
                                     <div class='card-footer d-flex justify-content-center'>
@@ -89,8 +89,6 @@
                             @endforeach
                         </div>
 
-                        
-             
                     </div>
                 </div>
             </div>

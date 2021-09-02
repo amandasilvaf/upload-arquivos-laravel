@@ -46,12 +46,11 @@ Route::prefix('perfil')->group(function () {
 
 
 Route::prefix('colaboradores')->group( function(){
-    Route::get('/', [ColaboradorController::class, 'index'])->name('colaboradores');
+    Route::get('/list', [ColaboradorController::class, 'list'])->name('colaboradores');
     Route::get('/novo', [ColaboradorController::class, 'create'])->name('colaborador.new');
     Route::post('/novo', [ColaboradorController::class, 'store'])->name('colaborador.add');
     Route::get('/{id}', [ColaboradorController::class, 'edit'])->name('colaborador.edit')->where('id', '[0-9]+');
     Route::post('/{id}', [ColaboradorController::class, 'update'])->name('colaborador.update')->where('id', '[0-9]+');
-    Route::get('/{id}/show', [ColaboradorController::class, 'show'])->name('colaborador.show')->where('id', '[0-9]+');
 });
 
 
