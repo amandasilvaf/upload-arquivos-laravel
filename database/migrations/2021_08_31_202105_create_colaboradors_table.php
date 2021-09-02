@@ -17,6 +17,7 @@ class CreateColaboradorsTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('cargo');
+            $table->string('foto');
             $table->timestamps();
         });
     }

@@ -32,9 +32,11 @@
     <div class="d-flex flex-column-fluid">
         <div class="container">
         
-          {{ $colaborador->nome}}
+         <h1>Nossa Equipe:</h1>   
+         
+        
     
-            
+
         </div>
     </div>
 </div>

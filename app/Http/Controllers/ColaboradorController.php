@@ -16,8 +16,8 @@ class ColaboradorController extends Controller
      */
     public function index()
     {
-
-        return view('colaboradores.index');
+        $colaboradores = Colaborador::all();
+        return view('colaboradores.index', compact('colaboradores'));
     }
 
     /**
@@ -32,24 +32,17 @@ class ColaboradorController extends Controller
 
     public function store(Request $request)
     {
-        $colaborador = new Colaborador();
-        $colaborador->nome = $request->nome;
-        $colaborador->cargo = $request->cargo;
-        $colaborador->save();
+        $data = $request->all();
+        // dd($data);
+        $foto = $request->image;
+        $extensao = $foto->extension();
+       // $nomeFoto = md5($foto->getClientOriginalName() . strtotime("now") . "." . $extensao);
+        $foto->move(public_path('img/colaboradores//temp/'));
 
-         if($request->hasFile('images')){
-             for($i = 0; $i < count($request->allFiles()['images']); $i++){
-                $file = $request->allFiles()['images'][$i];
+        $data['foto'] = $foto;
 
-                $colaboradorArquivo = new ColaboradorArquivo();
-                $colaboradorArquivo->colaboradores_id = $colaborador->id;
-                $colaboradorArquivo->caminho = $file->store('colaboradores/' . $colaborador->id);
-                $colaboradorArquivo->save();
-                unset($colaboradorArquivo); 
-             }
-         }
-         dd($colaborador);
-        // return redirect(route('colaboradores'));
+        Colaborador::create($data);
+        return redirect()->route('colaboradores');
     }
 
     /**
@@ -58,12 +51,9 @@ class ColaboradorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $colaborador)
+    public function show()
     {
-        //dd($colaborador);
-       //$colaborador = Colaborador::where('id', '=', $id)->with('arquivos');
-        //dd($colaborador);
-        return view('colaboradores.show', ['colaborador' => $colaborador]);
+      
     }
 
     /**

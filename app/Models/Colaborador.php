@@ -12,6 +12,8 @@ class Colaborador extends Model
 
     protected $table = 'colaboradores';
 
+    protected $fillable = ['nome', 'cargo', 'foto'];
+
     public function arquivos()
     {
         return $this->hasMany(ColaboradorArquivo::class);

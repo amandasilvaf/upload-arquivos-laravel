@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="custom-file col-8 mb-4"> 
-                    <input type="file" class="custom-file-input" id="customFileLangHTML" name="images[]" multiple>
+                    <input type="file" class="custom-file-input" id="image" name="image">
                     <label for="customFileLangHTML" class="custom-file-label" data-browse="Adicionar Fotos" ></label> 
                 </div>
 
