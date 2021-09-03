@@ -12,7 +12,15 @@
     input:focus{
         border: 2px solid #1BC5BD;
     }
+    #btnFoto{
+        float: right;
+    }
 </style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
 <div class="alert alert-custom alert-outline-primary fade show d-none" role="alert" id="alertSuccess">
     <div class="alert-icon"><i class="flaticon-warning"></i></div>
@@ -49,6 +57,8 @@
            
         </div>  
     </div>
+
+
 
 </div>
 
@@ -168,6 +178,66 @@
 </div>
 
 
+<div class="modal bg-white fade" tabindex="-1" id="modalFotos">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content shadow-none">
+            <div class="modal-header">
+                <h5 class="modal-title">Fotos</h5>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+            </div>
+            
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" action="{{url('/galeria')}}">
+                    {{csrf_field()}}
+                    <div class="input-group control-group">
+                        <input type="file" class="custom-file-input" id="image" name="image[]" multiple>
+                        <label for="customFileLangHTML" class="custom-file-label" data-browse="Adicionar Fotos" ></label> 
+                        <button class="btn btn-success" id="btnFoto" type="submit">Add</button>
+                    </div>
+                </form>
+                <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">   
+                    <div class="d-flex align-items-center justify-content-between flex-wrap">
+                       
+                        <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="0" class="ms-1 active"></li>
+                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="1" class="ms-1"></li>
+                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="2" class="ms-1"></li>
+                        </ol>
+                        
+                    </div>
+          
+                    <div class="carousel-inner pt-8">
+                        
+                        <div class="carousel-item active">
+                            <img src="{{asset('assets/media/bg/bg-1.jpg')}}" style="max-height: 500px; max-width:500px;">
+                        </div>
+                 
+                        <div class="carousel-item">
+                            <img src="{{asset('assets/media/bg/bg-2.jpg')}}"  style="max-height: 500px; max-width:500px;">
+                        </div>
+                
+                        
+                        {{-- @foreach ($fotosEndereco as $foto)
+                            <div class="carousel-item">
+                                <img src="" alt="">
+                            </div>
+                        @endforeach --}}
+
+                    </div>
+               
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('cep')
 <script>
 
@@ -268,8 +338,8 @@
             });
         } 
 
-        function visualizar(id){
-
+        function fotos(id){
+            $('#modalFotos').modal('show');
         }
 
         function editar(id){
@@ -315,7 +385,7 @@
                        
                     </div>
                     <div class='card-footer d-flex justify-content-center'>
-                        <a href='#' class='btn btn-outline-warning font-weight-bold' onclick="visualizar(${indice})">Fotos</a>
+                        <a href='#' class='btn btn-outline-warning font-weight-bold' onclick="fotos(${indice})">Fotos</a>
                         <a href='#' class='btn btn-outline-primary font-weight-bold' onclick="editar(${indice})">Editar</a>
                         <a href='#' class='btn btn-outline-danger font-weight-bold ' onclick="remover(${indice})">Excluir</a>  
                     </div>
@@ -475,6 +545,7 @@
             carregarEnderecos(user);
         });
 
+      
     </script>
 @endsection
 

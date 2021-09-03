@@ -8,6 +8,8 @@ use App\Http\Controllers\Users\PermissionsController;
 use App\Mail\PrimeiroEmailEnviado;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ColaboradorController;
+use App\Http\Controllers\fotosEnderecoController;
+
 // use Illuminate\Support\Facade\Mail;
 
 Route::prefix('usuarios')->middleware('verify.permissions')->group(function () {
@@ -54,6 +56,7 @@ Route::prefix('colaboradores')->group( function(){
     Route::get('/deletar/{id}',[ColaboradorController::class, 'destroy'])->name('colaborador.delete')->where('id', '[0-9]+');
 });
 
-
+Route::get('/galeria', [FotosEndereco::class, 'create']);
+Route::post('/galeria', [FotosEndereco::class, 'store']);
 
 //Route::resource('colaboradores', ColaboradorController::class);
