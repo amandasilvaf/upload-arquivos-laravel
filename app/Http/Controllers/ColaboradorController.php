@@ -91,7 +91,7 @@ class ColaboradorController extends Controller
 
         $arquivo = $colaborador->foto;
         Storage::disk('public')->delete($arquivo);
-        
+       
         $foto = $request->file('image');
         $imageName = time().'.'.$foto->extension();
         $foto->move(public_path('colaboradores'), $imageName);

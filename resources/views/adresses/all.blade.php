@@ -311,8 +311,9 @@
                        
                     </div>
                     <div class='card-footer d-flex justify-content-center'>
+                        <a href='#' class='btn btn-outline-warning font-weight-bold' onclick="visualizar(${indice})">Fotos</a>
                         <a href='#' class='btn btn-outline-primary font-weight-bold' onclick="editar(${indice})">Editar</a>
-                        <a href='#' class='btn btn-outline-danger font-weight-bold ' onclick="remover(${indice})">Excluir</a>
+                        <a href='#' class='btn btn-outline-danger font-weight-bold ' onclick="remover(${indice})">Excluir</a>  
                     </div>
                 </div>`
             
