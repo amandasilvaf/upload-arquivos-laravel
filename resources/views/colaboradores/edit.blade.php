@@ -21,6 +21,10 @@
                     <li class="breadcrumb-item">
                         <a href="{{ route('colaboradores') }}" class="text-muted">Colaboradores</a>
                     </li>
+                  
+                    <li class="breadcrumb-item">
+                        <a class="text-muted">{{$colaborador->nome}}</a>
+                    </li>
                     <li class="breadcrumb-item">
                         <a class="text-muted">Editar</a>
                     </li>

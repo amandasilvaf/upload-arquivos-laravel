@@ -51,7 +51,7 @@ Route::prefix('colaboradores')->group( function(){
     Route::post('/novo', [ColaboradorController::class, 'store'])->name('colaborador.add');
     Route::get('/editar/{id}', [ColaboradorController::class, 'edit'])->name('colaborador.edit')->where('id', '[0-9]+');
     Route::put('/{id}', [ColaboradorController::class, 'update'])->name('colaborador.update')->where('id', '[0-9]+');
-    Route::delete('/deletar/{id}',[ColaboradorController::class, 'destroy'])->name('colaborador.delete')->where('id', '[0-9]+');
+    Route::get('/deletar/{id}',[ColaboradorController::class, 'destroy'])->name('colaborador.delete')->where('id', '[0-9]+');
 });
 
 

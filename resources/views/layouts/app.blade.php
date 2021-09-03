@@ -140,14 +140,24 @@
                                                                 <span class="menu-text">{{ $submenu->name }}</span>
                                                             </a>
                                                         </li>
-                                        </li>
+                                                        </li>
                                     @endforeach
+                                    <li class="menu-item menu-item{{ $route === $submenu->route ? '-active' : '' }}"
+                                        aria-haspopup="true">
+                                        <a href="{{ route('colaboradores') }}" class="menu-link">
+                                            <i class="menu-bullet menu-bullet-dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="menu-text">Colaboradores</span>
+                                        </a>
+                                    </li>
                         </ul>
                     </div>
                     </li>
                     @endif
                     @endforeach
                     @endforeach
+                    
                     </ul>
                 </div>
             </div>
