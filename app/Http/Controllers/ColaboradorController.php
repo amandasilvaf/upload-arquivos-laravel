@@ -6,6 +6,7 @@ use App\Models\Colaborador;
 use App\Models\ColaboradorArquivo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ColaboradorController extends Controller
 {
@@ -16,7 +17,7 @@ class ColaboradorController extends Controller
      */
     public function list()
     {
-        $colaboradores = Colaborador::all();
+        $colaboradores = Colaborador::orderBy('id', 'DESC')->get();
         return view('colaboradores.list', compact('colaboradores'));
     }
 
@@ -36,11 +37,7 @@ class ColaboradorController extends Controller
     //    // dd($colaborador);
     //     $foto = $request->image;
     //     //dd($foto);
-    //     $nomeFoto = uniqid(date('HisYmd'));
-    //     $extensao = $foto->extension();
-    //     $nomeArquivo = "{$nomeFoto}.{$extensao}";
-    //     $colaborador['foto'] = $foto->storeAs('colaboradores', $nomeArquivo);
-
+    //     $colaborador['foto'] = $foto->store('colaboradores', 'public');
     //     Colaborador::create($colaborador);
     //     return redirect()->route('colaboradores');
 
@@ -75,7 +72,8 @@ class ColaboradorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $colaborador = Colaborador::find($id);
+        return view('colaboradores.edit', ['colaborador' => $colaborador]);
     }
 
     /**
@@ -87,7 +85,18 @@ class ColaboradorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $colaborador = Colaborador::find($id);
+        $colaborador->nome = $request->nome;
+        $colaborador->cargo = $request->cargo;
+
+        $foto = $request->file('image');
+        $imageName = time().'.'.$foto->extension();
+        $foto->move(public_path('colaboradores'), $imageName);
+        $colaborador->foto = $imageName;
+
+        $colaborador->save();
+       
+        return redirect()->route('colaboradores', ['colaborador' => $colaborador]);
     }
 
     /**
@@ -98,6 +107,12 @@ class ColaboradorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $colaborador = Colaborador::find($id);
+        if(isset($colaborador)){
+            $arquivo = $colaborador->foto;
+            Storage::disk('public')->delete($arquivo);
+            $colaborador->delete();
+        }
+        return redirect()->route('colaboradores');
     }
 }
