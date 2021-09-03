@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\FotosEndereco; 
 
 class CreateAdressesTable extends Migration
 {
@@ -16,12 +17,12 @@ class CreateAdressesTable extends Migration
         Schema::create('adresses', function (Blueprint $table) {
             $table->id();
             $table->string('logradouro');
-            $table->integer('numero');
+            $table->string('numero');
             $table->string('cep');
             $table->string('bairro');
             $table->string('cidade');
             $table->string('estado');
-            $table->string('complemento');
+            $table->string('complemento')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('tipo_enderecos_id')->constrained('tipo_enderecos')->onDelete('cascade');
             $table->timestamps();
@@ -36,5 +37,9 @@ class CreateAdressesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('adresses');
+
+    
     }
+
+   
 }

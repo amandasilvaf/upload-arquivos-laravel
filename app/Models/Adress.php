@@ -20,4 +20,9 @@ class Adress extends Model
     {
         return $this->belongsTo(TipoEndereco::class);
     }
+
+    public  function fotos_endereco(){
+        return $this->hasMany(FotosEndereco::class);
+    }
+
 }

@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Adress;
 
-class CreateColaboradorArquivosTable extends Migration
+class CreateFotosEnderecosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +14,10 @@ class CreateColaboradorArquivosTable extends Migration
      */
     public function up()
     {
-        Schema::create('colaborador_arquivos', function (Blueprint $table) {
+        Schema::create('fotos_endereco', function (Blueprint $table) {
             $table->id();
-            $table->string('caminho');
-            $table->foreignId('colaboradores_id')->constrained('colaboradores')->onDelete('cascade');
+            $table->foreignId('adress_id')->constrained('adresses')->onDelete('cascade');
+            $table->string('path');
             $table->timestamps();
         });
     }
@@ -28,6 +29,8 @@ class CreateColaboradorArquivosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colaborador_arquivos');
+        Schema::dropIfExists('fotos_enderecos');
     }
+
+   
 }

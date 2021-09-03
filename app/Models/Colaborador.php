@@ -14,8 +14,5 @@ class Colaborador extends Model
 
     protected $fillable = ['nome', 'cargo', 'foto'];
 
-    public function arquivos()
-    {
-        return $this->hasMany(ColaboradorArquivo::class);
-    }
+ 
 }

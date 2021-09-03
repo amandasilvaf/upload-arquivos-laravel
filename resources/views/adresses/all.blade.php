@@ -268,6 +268,10 @@
             });
         } 
 
+        function visualizar(id){
+
+        }
+
         function editar(id){
             $.getJSON('/api/enderecos/'+id, function(data){
                 $('#id').val(data.id);
