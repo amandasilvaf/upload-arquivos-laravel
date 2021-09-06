@@ -15,12 +15,14 @@
     #btnFoto{
         float: right;
     }
+
+    #carouselExampleIndicators{
+        margin-top:30px;
+    }
+
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
 <div class="alert alert-custom alert-outline-primary fade show d-none" role="alert" id="alertSuccess">
     <div class="alert-icon"><i class="flaticon-warning"></i></div>
@@ -199,30 +201,33 @@
                         <button type="submit" class="btn btn-primary" id="salvaFotos">Enviar</button>
                     </div>
                 </form>
-                <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">   
-                    <div class="d-flex align-items-center justify-content-between flex-wrap">
-                       
-                        <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
-                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="0" class="ms-1 active"></li>
-                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="1" class="ms-1"></li>
-                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="2" class="ms-1"></li>
-                        </ol>
-                        
-                    </div>
 
-                    <div id="carouselGaleria" class="carousel-inner pt-8">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                     
+                    </ol>
+                    <div class="carousel-inner">
                         
                     </div>
-               
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+
                 </div>
-            </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 @section('cep')
 <script>
@@ -324,28 +329,41 @@
             });
         } 
 
-        
+        function montaCarousel(aux){
+           let indicador;
+            if(aux == 0){
+                 indicador = `
+                 <li data-target="#carouselExampleIndicators" data-slide-to="${aux}" class="active"></li>
+                 `;
+                
+            }
+            indicador = `
+                <li data-target="#carouselExampleIndicators" data-slide-to="${aux}"></li>
+            `;   
+            
+            
+            return indicador;
+        }
 
-        function montaItem(path){
-            let item = `  
-            <div class="carousel-item">
-                <img src="{{ asset('storage/fotosEndereco/${path}')}}">
-            </div>`;
-            return item;
-           // let teste = `${path} <br>`; return teste;
-       }
+
+        const montaItem = (path, i) => (`
+           <div class="carousel-item ${i===0 && "active"} ">
+               <img class="d-block w-100" src="{{ asset('storage/fotosEndereco/${path}')}}">
+           </div>`);
+            
 
        function carregarFotos(id){
            
             $.getJSON('/api/fotos/' + id, function(fotos){
               
                for(i=0; i < fotos.length; i++){
-                   // var_dump(fotos[i]);
                    let path = fotos[i].path;
-                   console.log(fotos[i].path);
-                 
-                   let itemCarousel = montaItem(path);
-                   $('#carouselGaleria').append(itemCarousel);
+              
+                   let indicador = montaCarousel(i);
+                   $('#carouselExampleIndicators> ol').append(indicador);
+
+                   let itemCarousel = montaItem(path, i);
+                   $('.carousel-inner').append(itemCarousel);
                }
             });
         }
@@ -420,7 +438,8 @@
        
         }
        
-       function preencherCard(e){
+       
+        function preencherCard(e){
             var corpo = 
                 "<p>" + e.logradouro + ", <span>" + e.numero + "</span></p>" +
                 "<p>" + e.bairro + " - <span>"  + e.cep + "</span></p>" +
@@ -428,7 +447,6 @@
                 "<p class='pComplemento'>" + e.complemento + "</p>";
             return corpo;
        }
-
 
        function carregarEnderecos(user){
 
@@ -563,7 +581,6 @@
         
         });
 
-      
     </script>
 @endsection
 

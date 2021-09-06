@@ -28,6 +28,8 @@ class fotosEnderecoController extends Controller
             $fotosEndereco->save();
             unset($fotosEndereco);
        } 
+
+       return redirect('/usuarios/' . $idAdress);
    }
 
 //    public function show($idAdress)
