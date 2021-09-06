@@ -19,10 +19,31 @@ class fotosEnderecoController extends Controller
 
             $fotosEndereco = new FotosEndereco();
             $fotosEndereco->adress_id = $adress->id;
-            $fotosEndereco->path = $foto->store('fotosEndereco/' . $adress->id);
+           
+            $imageName = time().'.'.$foto->extension();
+            $foto->move(public_path('storage/fotosEndereco'), $imageName);
+        
+            $fotosEndereco->path = $imageName;
+
             $fotosEndereco->save();
             unset($fotosEndereco);
        } 
    }
+
+//    public function show($idAdress)
+//    {
+//         $fotos = FotosEndereco::where('adress_id', '=', $idAdress);
+//         return view('adresses.all', ['fotosEndereco' => $fotos]); 
+//    }
+
+    public function getFotos($idAdress){
+        $fotos = FotosEndereco::where('adress_id', '=', $idAdress)->get();
+        //dd($fotos);
+
+        // foreach ($fotos as $f) {
+        //    var_dump($f->path);
+        // }
+        return json_encode($fotos);
+    }
     
 }

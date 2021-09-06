@@ -192,11 +192,11 @@
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" action="{{url('/galeria')}}">
                     {{csrf_field()}}
-                    <input type="text" name="idEnd">
+                    <input type="hidden" name="idEnd">
                     <div class="input-group control-group">
                         <input type="file" class="custom-file-input" id="image" name="images[]" multiple>
                         <label for="customFileLangHTML" class="custom-file-label" data-browse="Adicionar Fotos" ></label> 
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="submit" class="btn btn-primary" id="salvaFotos">Enviar</button>
                     </div>
                 </form>
                 <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">   
@@ -209,24 +209,9 @@
                         </ol>
                         
                     </div>
-          
-                    <div class="carousel-inner pt-8">
-                        
-                        <div class="carousel-item active">
-                            <img src="{{asset('assets/media/bg/bg-1.jpg')}}" style="max-height: 500px; max-width:500px;">
-                        </div>
-                 
-                        <div class="carousel-item">
-                            <img src="{{asset('assets/media/bg/bg-2.jpg')}}"  style="max-height: 500px; max-width:500px;">
-                        </div>
-                
-                        
-                        {{-- @foreach ($fotosEndereco as $foto)
-                            <div class="carousel-item">
-                                <img src="" alt="">
-                            </div>
-                        @endforeach --}}
 
+                    <div id="carouselGaleria" class="carousel-inner pt-8">
+                        
                     </div>
                
                 </div>
@@ -339,9 +324,38 @@
             });
         } 
 
+        
+
+        function montaItem(path){
+            let item = `  
+            <div class="carousel-item">
+                <img src="{{ asset('storage/fotosEndereco/${path}')}}">
+            </div>`;
+            return item;
+           // let teste = `${path} <br>`; return teste;
+       }
+
+       function carregarFotos(id){
+           
+            $.getJSON('/api/fotos/' + id, function(fotos){
+              
+               for(i=0; i < fotos.length; i++){
+                   // var_dump(fotos[i]);
+                   let path = fotos[i].path;
+                   console.log(fotos[i].path);
+                 
+                   let itemCarousel = montaItem(path);
+                   $('#carouselGaleria').append(itemCarousel);
+               }
+            });
+        }
+
+
         function fotos(id){
             document.querySelector("[name='idEnd']").value = id;
+            carregarFotos(id);
             $('#modalFotos').modal('show');
+
         }
 
         function editar(id){
@@ -414,6 +428,7 @@
                 "<p class='pComplemento'>" + e.complemento + "</p>";
             return corpo;
        }
+
 
        function carregarEnderecos(user){
 
@@ -545,6 +560,7 @@
             let user = "{{$user->id}}";
             carregarTipos();
             carregarEnderecos(user);
+        
         });
 
       

@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdressController;
-
+use App\Http\Controllers\fotosEnderecoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +27,4 @@ Route::post('/enderecos', [AdressController::class, 'store']);
 Route::put('/enderecos/editar/{id}', [AdressController::class, 'update']);
 Route::get('/enderecos/{id}', [AdressController::class, 'show']);
 Route::delete('/enderecos/deletar/{id}', [AdressController::class, 'destroy']);
+Route::get('/fotos/{id}', [fotosEnderecoController::class, 'getFotos']);
