@@ -8,6 +8,7 @@ use App\Models\TipoEndereco;
 use Validator;
 use Illuminate\Support\Facades\DB;
 
+
 class AdressController extends Controller
 {
     

@@ -182,7 +182,7 @@
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content shadow-none">
             <div class="modal-header">
-                <h5 class="modal-title">Fotos</h5>
+                <h5 class="modal-title">Galeria</h5>
                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                     <span class="svg-icon svg-icon-2x"></span>
                 </div>
@@ -192,10 +192,11 @@
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" action="{{url('/galeria')}}">
                     {{csrf_field()}}
+                    <input type="text" name="idEnd">
                     <div class="input-group control-group">
-                        <input type="file" class="custom-file-input" id="image" name="image[]" multiple>
+                        <input type="file" class="custom-file-input" id="image" name="images[]" multiple>
                         <label for="customFileLangHTML" class="custom-file-label" data-browse="Adicionar Fotos" ></label> 
-                        <button class="btn btn-success" id="btnFoto" type="submit">Add</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
                     </div>
                 </form>
                 <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">   
@@ -339,6 +340,7 @@
         } 
 
         function fotos(id){
+            document.querySelector("[name='idEnd']").value = id;
             $('#modalFotos').modal('show');
         }
 
@@ -385,7 +387,7 @@
                        
                     </div>
                     <div class='card-footer d-flex justify-content-center'>
-                        <a href='#' class='btn btn-outline-warning font-weight-bold' onclick="fotos(${indice})">Fotos</a>
+                        <a href='#' class='btn btn-outline-warning font-weight-bold' onclick="fotos(${indice})">Galeria</a>
                         <a href='#' class='btn btn-outline-primary font-weight-bold' onclick="editar(${indice})">Editar</a>
                         <a href='#' class='btn btn-outline-danger font-weight-bold ' onclick="remover(${indice})">Excluir</a>  
                     </div>

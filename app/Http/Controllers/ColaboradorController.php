@@ -46,7 +46,8 @@ class ColaboradorController extends Controller
            $colaborador->cargo = $request->cargo;
            $foto = $request->file('image');
            $imageName = time().'.'.$foto->extension();
-           $foto->move(public_path('colaboradores'), $imageName);
+           $foto->move(public_path('storage/colaboradores'), $imageName);
+        
            $colaborador->foto = $imageName;
            $colaborador->save();
            return redirect()->route('colaboradores');

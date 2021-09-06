@@ -12,7 +12,7 @@ class FotosEndereco extends Model
 
     use HasFactory;
 
-    public function adresses(){
+    public function adress(){
         return $this->belongsTo(Adress::class);
     }
 }

@@ -56,7 +56,7 @@ Route::prefix('colaboradores')->group( function(){
     Route::get('/deletar/{id}',[ColaboradorController::class, 'destroy'])->name('colaborador.delete')->where('id', '[0-9]+');
 });
 
-Route::get('/galeria', [FotosEndereco::class, 'create']);
-Route::post('/galeria', [FotosEndereco::class, 'store']);
 
-//Route::resource('colaboradores', ColaboradorController::class);
+Route::post('/galeria', [fotosEnderecoController::class, 'store']);
+
+

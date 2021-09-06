@@ -66,7 +66,7 @@
                                     </div>
                                     <div class='card-body dados'>
                                         <div class="cargo mb-10 text-center"><h5>{{$colaborador->cargo}}</h5></div>   
-                                        <img src="{{ asset('colaboradores')}}/{{$colaborador->foto}}" style="width:200px; heigth:200px;" >
+                                        <img src="{{ asset('storage/colaboradores')}}/{{$colaborador->foto}}" style="width:200px; heigth:200px;" >
                            
                                     </div>
                                     <div class='card-footer d-flex justify-content-center'>
